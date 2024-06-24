@@ -1,4 +1,4 @@
-package com.fuish.test;
+package com.fuish.test.Adapter;
 
 
 import android.annotation.SuppressLint;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.fuish.test.NewInfo;
+import com.fuish.test.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +50,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
+        public void  onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
             NewInfo.ResultDTO.DataDTO dataDTO = mDataBeanList.get(position);
 
             //设置数据
-            holder.author_name.setText("来源"+dataDTO.getAuthor_name());
+            holder.author_name.setText("来源："+dataDTO.getAuthor_name());
             holder.title.setText(dataDTO.getTitle());
             holder.date.setText(dataDTO.getDate());
             //加载图片

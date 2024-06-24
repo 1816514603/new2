@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 
 import com.fuish.test.NewInfo;
 import com.fuish.test.NewsDetailActivity;
-import com.fuish.test.NewsListAdapter;
 import com.fuish.test.R;
 import com.google.gson.Gson;
 
@@ -40,7 +39,16 @@ public class TabNewsFragment extends Fragment {
     private NewsListAdapter mNewsListAdapter;
     private String title;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        if (getArguments() != null) {
+            title = getArguments().getString(ARG_PARAM);
+
+        }
+
+    }
   private Handler mHandler=new Handler(Looper.myLooper()){
       @Override
       public void handleMessage(@NonNull Message msg) {
@@ -48,16 +56,19 @@ public class TabNewsFragment extends Fragment {
           if (msg.what == 100) {
                 String data = (String) msg.obj;
                 NewInfo newsInfo = new Gson().fromJson(data, NewInfo.class);
+
                 //刷新适配器
                 if (null!=mNewsListAdapter){
                     mNewsListAdapter.setListData(newsInfo.getResult().getData());
                 }
+
+          }
       }
-  } };
+  } ;
 
-    public TabNewsFragment() {
-
-    }
+//    public TabNewsFragment() {
+//
+//    }
 
 
     public static TabNewsFragment newInstance(String param) {
@@ -69,14 +80,7 @@ public class TabNewsFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            title = getArguments().getString(ARG_PARAM);
 
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,6 +88,7 @@ public class TabNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_tab_news, container, true);
         recyclerView=rootView.findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(mNewsListAdapter);
         return rootView;
     }
 
@@ -100,6 +105,7 @@ public class TabNewsFragment extends Fragment {
                 Intent intent=new Intent(getActivity(), NewsDetailActivity.class);
                 intent.putExtra("DataDTO",dataDTO);
                 startActivity(intent);
+
 
             }
         });

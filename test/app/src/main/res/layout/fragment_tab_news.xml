@@ -7,6 +7,13 @@
     android:orientation="vertical"
     tools:context=".Adapter.TabNewsFragment">
 
+<!-- <androidx.appcompat.widget.Toolbar-->
+<!--     android:layout_width="match_parent"-->
+<!--     android:layout_height="wrap_content"-->
+<!--     android:background="@color/teal_200"-->
+<!--     app:titleTextColor="@color/white"-->
+<!--     app:title="新闻列表"/>-->
+
  <androidx.recyclerview.widget.RecyclerView
      android:id="@+id/recyclerView"
      android:layout_width="match_parent"
