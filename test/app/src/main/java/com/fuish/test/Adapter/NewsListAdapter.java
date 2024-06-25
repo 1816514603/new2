@@ -24,9 +24,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
         private Context mContext;
 
 
-        public NewsListAdapter(Context context) {
-            this.mContext = context;
-        }
+
 
 
         /**
@@ -39,7 +37,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
 
         }
 
-
+    public NewsListAdapter(Context context) {
+        this.mContext = context;
+    }
 
         @NonNull
         @Override
@@ -51,6 +51,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
 
         @Override
         public void  onBindViewHolder(@NonNull MyHolder holder, @SuppressLint("RecyclerView") int position) {
+            //绑定数据
             NewInfo.ResultDTO.DataDTO dataDTO = mDataBeanList.get(position);
 
             //设置数据
@@ -60,10 +61,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
             //加载图片
             Glide.with(mContext).load(dataDTO.getThumbnail_pic_s()).error(R.mipmap.img_error).into(holder.thumbnail_pic_s);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        if(null!=mOnItemClickListener){
-            mOnItemClickListener.onItemClick(dataDTO,position);
+                @Override
+                public void onClick(View view) {
+                    if(null!=mOnItemClickListener){
+                        mOnItemClickListener.onItemClick(dataDTO,position);
         }
     }
 });
@@ -91,13 +92,13 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyHold
 
             }
         }
-private  onItemClickListener mOnItemClickListener;
+        private  onItemClickListener mOnItemClickListener;
 
 
 
-    public void setOnItemClickListener(onItemClickListener onItemClickListener) {
-        mOnItemClickListener = onItemClickListener;
-    }
+        public void setOnItemClickListener(onItemClickListener onItemClickListener) {
+            mOnItemClickListener = onItemClickListener;
+        }
 
     public interface onItemClickListener{
             void onItemClick(NewInfo.ResultDTO.DataDTO dataDTO,int position);

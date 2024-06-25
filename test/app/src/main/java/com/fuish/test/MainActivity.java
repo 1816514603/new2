@@ -132,6 +132,10 @@ nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSe
         super.onResume();
 
 
+
+
+
+        
     }
 //    private class LongRunningTask extends AsyncTask<Void, Void, Void> {
 //        @Override

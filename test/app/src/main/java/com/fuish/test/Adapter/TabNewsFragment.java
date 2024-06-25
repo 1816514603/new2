@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.fuish.test.NewInfo;
 import com.fuish.test.NewsDetailActivity;
@@ -56,19 +57,22 @@ public class TabNewsFragment extends Fragment {
           if (msg.what == 100) {
                 String data = (String) msg.obj;
                 NewInfo newsInfo = new Gson().fromJson(data, NewInfo.class);
-
+                if(newsInfo!=null && newsInfo.getError_code()==0){
                 //刷新适配器
                 if (null!=mNewsListAdapter){
                     mNewsListAdapter.setListData(newsInfo.getResult().getData());
+                }}
+                else{
+                    Toast.makeText(getActivity(), "获取失败，请稍后再试", Toast.LENGTH_SHORT).show();
                 }
 
           }
       }
   } ;
 
-//    public TabNewsFragment() {
-//
-//    }
+    public TabNewsFragment() {
+
+    }
 
 
     public static TabNewsFragment newInstance(String param) {
@@ -87,16 +91,21 @@ public class TabNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView= inflater.inflate(R.layout.fragment_tab_news, container, true);
+
+        //初始化控件
         recyclerView=rootView.findViewById(R.id.recyclerView);
-        recyclerView.setAdapter(mNewsListAdapter);
+
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //初始化适配器
         mNewsListAdapter=new NewsListAdapter(getActivity());
+
         recyclerView.setAdapter(mNewsListAdapter);
+
         getHttpData();
         mNewsListAdapter.setOnItemClickListener(new NewsListAdapter.onItemClickListener() {
             @Override

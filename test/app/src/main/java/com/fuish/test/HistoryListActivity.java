@@ -52,7 +52,6 @@ private List<NewInfo.ResultDTO.DataDTO>mDataDTOList=new ArrayList<>();
                 //跳转
                 Intent intent=new Intent(HistoryListActivity.this, NewsDetailActivity.class);
                 intent.putExtra("dataDTO",dataDTO);
-
                 startActivity(intent);
             }
         });

@@ -38,7 +38,7 @@ public class HistoryDbHelper extends SQLiteOpenHelper {
             db.execSQL("create table history_table(history_id integer primary key autoincrement, " +
                     "uniquekey text," +      //新闻id
                     "username text," +       //用户名
-                    "new_json integer" +       // 新闻数据
+                    "new_json text" +       // 新闻数据
                     ")");
 
 
@@ -67,9 +67,9 @@ public class HistoryDbHelper extends SQLiteOpenHelper {
       values.put("new_json", new_json);
       String nullColumnHack = "values(null,?,?,?)";
       //执行
-//      int insert = (int) db.insert("user_table", nullColumnHack, values);
-//  //        db.close();
-//      return insert;
+      int insert = (int) db.insert("history_table", nullColumnHack, values);
+  //        db.close();
+      return insert;
 }
       return 0;
     }
@@ -80,7 +80,7 @@ public class HistoryDbHelper extends SQLiteOpenHelper {
     public boolean isHistory(String uniquekey) {
         //获取SQLiteDatabase实例
         SQLiteDatabase db = getReadableDatabase();
-        HistoryDbHelper userInfo = null;
+//        HistoryDbHelper HistoryInfo = null;
         String sql = "select history_id,uniquekey,username,new_json  from history_table where username=?";
         String[] selectionArgs = {uniquekey};
         Cursor cursor = db.rawQuery(sql, selectionArgs);
@@ -91,7 +91,7 @@ public class HistoryDbHelper extends SQLiteOpenHelper {
 
 
     /**
-     * 获取所有注册用户
+     * 查询历史记录
      */
     @SuppressLint("Range")
     public List<HistoryInfo> queryRegisterListData(String username) {
@@ -101,10 +101,10 @@ public class HistoryDbHelper extends SQLiteOpenHelper {
         String sql;
         Cursor cursor;
         if(username ==null){
-            sql = "select history_id,uniquekey,username,new_json  from history_table where username=?";
+            sql = "select history_id,uniquekey,username,new_json  from history_table";
             cursor = db.rawQuery(sql, null);
         }else{
-           sql = "select history_id,uniquekey,username,new_json  from history_table where username=?";
+           sql = "select history_id,uniquekey,username,new_json  from history_table  where username=?";
            cursor = db.rawQuery(sql, new String[]{username});
         }
            

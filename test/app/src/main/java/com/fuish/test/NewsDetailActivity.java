@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 public class NewsDetailActivity extends AppCompatActivity {
 private Toolbar toolbar;
-private WebView mwebView;
+private WebView mWebView;
     private NewInfo.ResultDTO.DataDTO dataDTO;
 
     @Override
@@ -21,31 +21,26 @@ private WebView mwebView;
         setContentView(R.layout.activity_news_detail);
 
         toolbar=findViewById(R.id.toolbar);
-        mwebView=findViewById(R.id.webview);
+        mWebView=findViewById(R.id.webview);
         //获取传递的数据
         dataDTO =(NewInfo.ResultDTO.DataDTO)getIntent().getSerializableExtra("DataDTO");
 
-     if(null!=dataDTO){
+        //设置数据
+        if(null!=dataDTO){
          toolbar.setTitle(dataDTO.getTitle());
-         mwebView.loadUrl(dataDTO.getUrl());
+         mWebView.loadUrl(dataDTO.getUrl());
 
          //添加历史记录
          String dataDTOJson=new Gson().toJson(dataDTO);
          HistoryDbHelper.getInstance(NewsDetailActivity.this).addhistory(null,dataDTO.getUniquekey(),dataDTOJson);
 
-}
+     }
+
      toolbar.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-
-        finish();
+         @Override
+         public void onClick(View view) {
+             finish();
+         }
+     });
     }
-});
-    }
-//    //添加历史记录
-//    String dataDTOJson=new Gson().toJson(dataDTO);
-//    HistoryDbHelper.getInstance(NewsDetailActivity.this).addHistory(null,dataDTO.getUniquekey(),dataDTOJson);
-
-
-
 }
